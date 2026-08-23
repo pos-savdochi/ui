@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  # main'da BEKOR QILMAYMIZ. Bekor qilingan CI o'zining deploy'ini ham
+  # o'ldiradi: ikki merge bir CI siklida kelsa, birinchisi jimgina
+  # deploy qilinmay qoladi. PR'larda esa bekor qilish foydali.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    uses: savdochi-uz/.github/.github/workflows/node-ci.yml@main
+    with:
+      node-version: "22"
+      pnpm-version: "10.33.4"
+      working-directory: "."
+      build: true

@@ -1,0 +1,18 @@
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+build/
+.turbo/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Muhit fayllari hech qachon repoga tushmasin — serverda qo'lda turadi.
+.env
+.env.*
+!.env.example
+
+.DS_Store
+*.log

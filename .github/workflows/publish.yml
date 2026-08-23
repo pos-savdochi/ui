@@ -1,0 +1,47 @@
+name: Publish
+
+# Faqat tag'dan. Har merge'da publish qilish tasodifiy relizlar va
+# qaytarib bo'lmaydigan versiya raqamlarini anglatadi (npm versiyani
+# o'chirishga ruxsat bermaydi).
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with: { version: "10.33.4" }
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@savdochi-uz"
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run --if-present build
+
+      # Tag versiyasi package.json versiyasiga mos kelishi SHART. Mos
+      # kelmasa, keyinchalik "v0.3.0 tagida qaysi kod bor?" degan savolga
+      # javob bo'lmaydi.
+      - name: Tag va package.json versiyasi mosligi
+        run: |
+          PKG=$(node -p "require('./package.json').version")
+          TAG="${GITHUB_REF_NAME#v}"
+          if [ "$PKG" != "$TAG" ]; then
+            echo "package.json=$PKG, tag=$TAG — mos emas" >&2
+            exit 1
+          fi
+
+      - name: Publish
+        run: pnpm publish --no-git-checks --access restricted
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
