@@ -4,6 +4,10 @@ on:
   pull_request:
   push:
     branches: [main]
+  # Qo'lda qayta yurgizish uchun. `gh run rerun` reusable workflow'ning
+  # ESKI suratini qayta o'ynatadi, shuning uchun umumiy CI o'zgargandan
+  # keyin tekshirishning yagona ishonchli yo'li — shu.
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
