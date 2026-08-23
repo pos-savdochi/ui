@@ -1,0 +1,55 @@
+/* Sotuv chekini chop etish uchun izolyatsiya. FAQAT POS ilovasi import qilsin.
+ *
+ * DIQQAT: quyidagi birinchi qoida `.receipt-print` sinfi bo'lmagan sahifada
+ * BUTUN sahifani yashiradi. Uni umumiy globals.css ga qaytarmang — avval shu
+ * yerda turgani uchun office'da har bir chop etish bo'sh varaq chiqargan.
+ *
+ * Import: import "@savdochi-uz/ui/styles/receipt-print.css"
+ */
+
+/* Print isolation for the sales receipt (works from both the intercepted sheet
+ * and the full detail page). Reveal ONLY the receipt subtree by hiding every
+ * element that is neither an ancestor of it (:has), the receipt itself, nor a
+ * descendant. `display:none` (not visibility) so the hidden app chrome/list
+ * leave NO blank pages, and the receipt stays in NORMAL FLOW so a long,
+ * many-item receipt paginates instead of clipping to one page. */
+@media print {
+  body *:not(:has(.receipt-print)):not(.receipt-print):not(.receipt-print *) {
+    display: none !important;
+  }
+  /* Un-clip / un-fix every ancestor (the drawer is a fixed, scrolling box; the
+   * app shell + card constrain height/overflow) so the receipt can page-break. */
+  *:has(.receipt-print) {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+  [data-slot="sheet-content"] {
+    position: static !important;
+    max-width: none !important;
+    width: auto !important;
+    border: 0 !important;
+  }
+  /* Force the LIGHT palette for the receipt regardless of the on-screen theme,
+   * so dark-mode text stays legible on white paper (the literal profit green
+   * and the destructive var are re-pinned to print-safe values). */
+  .receipt-print {
+    --background: #ffffff;
+    --foreground: #1d1d1f;
+    --card: #ffffff;
+    --card-foreground: #1d1d1f;
+    --muted: #f5f5f7;
+    --muted-foreground: #6e6e73;
+    --border: #e0e0e0;
+    --primary: #0066cc;
+    --destructive: #c8102e;
+    position: static !important;
+    overflow: visible !important;
+    color: #1d1d1f !important;
+    background: #ffffff !important;
+  }
+  .receipt-print li {
+    break-inside: avoid;
+  }
+}
+

@@ -1,0 +1,332 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+/* @source: iste'molchi ilova O'Z fayllarini o'zi e'lon qiladi.
+ * Bu yerda faqat paketning o'z komponentlari sanaladi — avval bu
+ * yerda monorepo apps/ ga ishora qiluvchi glob turardi, u paket
+ * node_modules ichiga tushgach butun daraxtni kezib chiqadi. */
+@source "../**/*.{ts,tsx}";
+
+/* ------------------------------------------------------------------ *
+ * Apple design system (design/theme.md)
+ * Single accent: Action Blue #0066cc. Surfaces: white / parchment
+ * #f5f5f7 in light, near-black tiles #272729 / #2a2a2c / #252527 in dark.
+ * All values are exact sRGB → OKLCH conversions of the theme.md hexes.
+ * ------------------------------------------------------------------ */
+
+:root {
+    --background: oklch(1 0 0);                    /* #ffffff */
+    --foreground: oklch(0.232 0.0038 286.099);    /* #1d1d1f ink */
+    --card: oklch(1 0 0);                          /* white utility card */
+    --card-foreground: oklch(0.232 0.0038 286.099);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.232 0.0038 286.099);
+    --primary: oklch(0.522 0.1771 255.83);        /* #0066cc Action Blue */
+    --primary-foreground: oklch(1 0 0);           /* #ffffff */
+    --secondary: oklch(0.971 0.0027 286.35);      /* #f5f5f7 parchment */
+    --secondary-foreground: oklch(0.232 0.0038 286.099);
+    --muted: oklch(0.971 0.0027 286.35);          /* #f5f5f7 parchment */
+    --muted-foreground: oklch(0.54 0.0077 286.139); /* #6e6e73 */
+    --accent: oklch(0.971 0.0027 286.35);         /* #f5f5f7 parchment */
+    --accent-foreground: oklch(0.232 0.0038 286.099);
+    --destructive: oklch(0.654 0.2321 28.659);    /* #ff3b30 */
+    --border: oklch(0.907 0 0);                   /* #e0e0e0 hairline */
+    --input: oklch(0.907 0 0);                    /* #e0e0e0 */
+    --ring: oklch(0.563 0.1933 256.156);          /* #0071e3 focus blue */
+    --chart-1: oklch(0.522 0.1771 255.83);
+    --chart-2: oklch(0.669 0.1808 251.84);
+    --chart-3: oklch(0.563 0.1933 256.156);
+    --chart-4: oklch(0.7 0.12 250);
+    --chart-5: oklch(0.8 0.08 248);
+    --radius: 0.875rem;
+    --sidebar: oklch(0.971 0.0027 286.35);        /* parchment */
+    --sidebar-foreground: oklch(0.232 0.0038 286.099);
+    --sidebar-primary: oklch(0.522 0.1771 255.83);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(1 0 0);
+    --sidebar-accent-foreground: oklch(0.232 0.0038 286.099);
+    --sidebar-border: oklch(0.907 0 0);
+    --sidebar-ring: oklch(0.563 0.1933 256.156);
+}
+
+.dark {
+    --background: oklch(0.232 0.0038 286.099);     /* #1d1d1f near-black canvas */
+    --foreground: oklch(0.971 0.0027 286.35);      /* #f5f5f7 soft white */
+    --card: oklch(0.274 0.0036 286.156);           /* #272729 tile-1 */
+    --card-foreground: oklch(0.971 0.0027 286.35);
+    --popover: oklch(0.274 0.0036 286.156);        /* #272729 tile-1 */
+    --popover-foreground: oklch(0.971 0.0027 286.35);
+    --primary: oklch(0.522 0.1771 255.83);         /* #0066cc — single accent, both modes */
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.286 0.0036 286.169);      /* #2a2a2c tile-2 */
+    --secondary-foreground: oklch(0.971 0.0027 286.35);
+    --muted: oklch(0.265 0.0037 286.146);          /* #252527 tile-3 */
+    --muted-foreground: oklch(0.711 0.0072 286.216); /* #a1a1a6 */
+    --accent: oklch(0.286 0.0036 286.169);         /* #2a2a2c tile-2 */
+    --accent-foreground: oklch(0.971 0.0027 286.35);
+    --destructive: oklch(0.663 0.2236 28.292);     /* #ff453a */
+    --border: oklch(1 0 0 / 12%);                  /* white hairline */
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.669 0.1808 251.84);            /* #2997ff sky-link focus */
+    --chart-1: oklch(0.669 0.1808 251.84);
+    --chart-2: oklch(0.563 0.1933 256.156);
+    --chart-3: oklch(0.522 0.1771 255.83);
+    --chart-4: oklch(0.7 0.12 250);
+    --chart-5: oklch(0.8 0.08 248);
+    --sidebar: oklch(0.274 0.0036 286.156);        /* tile-1 */
+    --sidebar-foreground: oklch(0.971 0.0027 286.35);
+    --sidebar-primary: oklch(0.522 0.1771 255.83);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.286 0.0036 286.169);
+    --sidebar-accent-foreground: oklch(0.971 0.0027 286.35);
+    --sidebar-border: oklch(1 0 0 / 12%);
+    --sidebar-ring: oklch(0.669 0.1808 251.84);
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    /* Apple brand surfaces — fixed across themes (tiles are always dark,
+       parchment always light). Utilities: bg-parchment, bg-tile-1, text-ink… */
+    --color-parchment: oklch(0.971 0.0027 286.35);   /* #f5f5f7 */
+    --color-pearl: oklch(0.986 0.0026 286.351);      /* #fafafc */
+    --color-ink: oklch(0.232 0.0038 286.099);        /* #1d1d1f */
+    --color-tile-1: oklch(0.274 0.0036 286.156);     /* #272729 */
+    --color-tile-2: oklch(0.286 0.0036 286.169);     /* #2a2a2c */
+    --color-tile-3: oklch(0.265 0.0037 286.146);     /* #252527 */
+    --color-sky: oklch(0.669 0.1808 251.84);         /* #2997ff on-dark link */
+    --color-focus: oklch(0.563 0.1933 256.156);      /* #0071e3 focus */
+
+    /* Apple system status colors — functional (not brand) tones for
+       error/warning/success states. Red already lives in `--destructive`.
+       Fixed across themes; utilities: text-warning, bg-success/10, … */
+    --color-warning: oklch(0.7719 0.1583 62.06);     /* #ff9500 system orange */
+    --color-success: oklch(0.7451 0.1657 145.63);    /* #34c759 system green */
+
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --font-sans: var(--font-sans);
+    --font-heading: var(--font-heading);
+    --font-mono: var(--font-mono);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis-weight: none;
+    }
+  /* Headlines: SF Pro Display with the signature "Apple tight" tracking. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    letter-spacing: -0.01em;
+    }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+    }
+}
+
+@layer utilities {
+  /* The single drop-shadow in the system — reserved for product imagery
+     resting on a surface (theme.md). Never on cards, buttons, or text. */
+  .shadow-product {
+    box-shadow: rgba(0, 0, 0, 0.22) 3px 5px 30px 0;
+  }
+
+  /* Full-viewport height that survives the text-size zoom on <html>. CSS
+     svh/vh are viewport-relative and do NOT scale with `zoom`, so a zoomed page
+     would leave a blank strip (zoom < 1) or overflow (zoom > 1) below the
+     footer. Dividing by the zoom factor (--app-zoom, set by FontScaleProvider;
+     defaults to 1) makes the shell fill exactly one viewport at any text size.
+     Use these instead of h-svh / min-h-svh on full-page layout roots. */
+  .h-app {
+    height: calc(100svh / var(--app-zoom, 1));
+  }
+  .min-h-app {
+    min-height: calc(100svh / var(--app-zoom, 1));
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Floating layers vs. the text-size `zoom` on <html>.
+ * Radix/Floating-UI positions popovers/menus/tooltips with a `position:fixed`
+ * wrapper and a px `transform: translate(x,y)` computed in true viewport space.
+ * The app-wide `zoom` (--app-zoom, set by FontScaleProvider for the text-size
+ * control) multiplies that translate, so every floating layer drifts by the
+ * zoom factor and the wider ones (the notifications panel) run off-screen.
+ * Neutralising the zoom on the popper wrapper puts the translate back in true
+ * viewport space — the layer lands where Floating-UI intends at any text size.
+ * Unlayered so it beats the component's own styles.
+ * ------------------------------------------------------------------ */
+[data-radix-popper-content-wrapper] {
+  zoom: calc(1 / var(--app-zoom, 1));
+}
+
+/* ------------------------------------------------------------------ *
+ * Motion preference (interface setting → data-motion on <html>).
+ * Default (no attribute) respects the OS via prefers-reduced-motion.
+ * "reduced" always minimises motion; "full" opts back in even when the OS
+ * asks to reduce. The 0.01ms durations disable motion while still firing
+ * transition/animation end events so JS-driven flows don't stall. Unlayered
+ * + !important so it wins over component transitions.
+ * ------------------------------------------------------------------ */
+:root[data-motion="reduced"] *,
+:root[data-motion="reduced"] *::before,
+:root[data-motion="reduced"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) *,
+  :root:not([data-motion="full"]) *::before,
+  :root:not([data-motion="full"]) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Arrival highlight — "this is the one the notification meant".
+ * A notification link carries `?hl=<key>`; <HighlightTarget> finds the
+ * matching [data-hl] element and sets [data-hl-active] on it for ~2.4s.
+ * The steady ring is JS-timed, so reducing motion drops the pulse (the
+ * reset above zeroes its duration) yet the mark still lands. Outline for
+ * the ring, box-shadow for the pulse: two properties, so the animation
+ * never fights the steady state. Both follow border-radius.
+ * ------------------------------------------------------------------ */
+@keyframes hl-pulse {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 40%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 10px color-mix(in oklab, var(--primary) 0%, transparent);
+  }
+}
+
+[data-hl] {
+  /* Lives on the anchor, not on [data-hl-active], so the ring FADES out when
+     the attribute is dropped instead of snapping off. */
+  transition:
+    outline-color 0.45s ease,
+    background-color 0.45s ease;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+}
+
+/* A row INSIDE an `overflow-hidden` card (a line in a document, an item in a
+   receipt) has no room outside itself: the 3px outset ring would be clipped
+   left and right by the card's own rounding. These draw it just inside their
+   box instead. Declared after [data-hl] — same specificity, later wins. */
+[data-hl-inset] {
+  outline-offset: -2px;
+}
+
+[data-hl-active] {
+  outline-color: color-mix(in oklab, var(--primary) 60%, transparent);
+  background-color: color-mix(in oklab, var(--primary) 5%, transparent);
+  animation: hl-pulse 1.2s ease-out 2;
+}
+
+/* ------------------------------------------------------------------ *
+ * Modal (native <dialog>) enter/exit — backdrop fade + blur and a panel
+ * scale/fade, using @starting-style + `allow-discrete` so BOTH opening AND
+ * closing animate with pure CSS (no JS timers). Because it is a plain
+ * transition, the motion setting (reduced-motion reset above) gates it
+ * automatically — the panel's transform/opacity transitions get zeroed, so a
+ * "reduced" user just sees it appear. Apply `.modal-animated` to the <dialog>
+ * and keep the element mounted so the close transition can play. The easing is
+ * Apple's decelerate curve. Panel enters from 96% + 8px; the backdrop is here
+ * (not a Tailwind `backdrop:` utility) so it can transition. */
+.modal-animated {
+  opacity: 0;
+  transform: scale(0.96) translateY(8px);
+  transition:
+    opacity 0.24s cubic-bezier(0.32, 0.72, 0, 1),
+    transform 0.24s cubic-bezier(0.32, 0.72, 0, 1),
+    overlay 0.24s allow-discrete,
+    display 0.24s allow-discrete;
+}
+.modal-animated[open] {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+@starting-style {
+  .modal-animated[open] {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+}
+.modal-animated::backdrop {
+  background-color: rgb(0 0 0 / 0);
+  backdrop-filter: blur(0);
+  transition:
+    background-color 0.24s ease,
+    backdrop-filter 0.24s ease,
+    overlay 0.24s allow-discrete,
+    display 0.24s allow-discrete;
+}
+.modal-animated[open]::backdrop {
+  background-color: rgb(0 0 0 / 0.5);
+  backdrop-filter: blur(4px);
+}
+@starting-style {
+  .modal-animated[open]::backdrop {
+    background-color: rgb(0 0 0 / 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+/* Chek print izolyatsiyasi BU YERDA EMAS —
+ * `@savdochi-uz/ui/styles/receipt-print.css` da.
+ *
+ * Sababi: u qoida `body *:not(:has(.receipt-print))` ni yashiradi, ya'ni
+ * sahifada `.receipt-print` sinfi bo'lmasa HAMMA NARSANI yashiradi. Umumiy
+ * globals.css da turgani uchun u office'ga ham meros bo'lib o'tgan va u
+ * yerda har qanday sahifani chop etish bo'sh varaq bergan. Faqat POS
+ * ilovasi import qilsin. */
