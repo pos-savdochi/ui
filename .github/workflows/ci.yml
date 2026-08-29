@@ -1,29 +1,43 @@
 name: CI
 
+# Bu repo O'ZINING CI'sini olib yuradi, umumiy `pos-savdochi/.github`
+# workflow'ini chaqirmaydi. Sababi struktural: `ui` PUBLIC (client CI uni
+# tokensiz tarball sifatida yuklab oladi), `.github` esa PRIVATE, va GitHub
+# public repoga private repodan reusable workflow chaqirishga RUXSAT BERMAYDI
+# — workflow umuman ishga tushmaydi, "0 job" bilan qizaradi.
+#
+# Ikki muqobil bor edi va ikkalasi ham qimmat: `ui` ni private qilish client
+# CI'sini buzardi (GITHUB_TOKEN faqat o'z reposiga scope'langan, boshqa
+# repodagi tarball'ni ola olmaydi), `.github` ni public qilish esa prod
+# server yo'llari va servis nomlarini oshkor qilardi.
+
 on:
   pull_request:
   push:
     branches: [main]
-  # Qo'lda qayta yurgizish uchun. `gh run rerun` reusable workflow'ning
-  # ESKI suratini qayta o'ynatadi, shuning uchun umumiy CI o'zgargandan
-  # keyin tekshirishning yagona ishonchli yo'li — shu.
   workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
-  # main'da BEKOR QILMAYMIZ. Bekor qilingan CI o'zining deploy'ini ham
-  # o'ldiradi: ikki merge bir CI siklida kelsa, birinchisi jimgina
-  # deploy qilinmay qoladi. PR'larda esa bekor qilish foydali.
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 permissions:
   contents: read
 
 jobs:
-  verify:
-    uses: pos-savdochi/.github/.github/workflows/node-ci.yml@main
-    with:
-      node-version: "22"
-      pnpm-version: "10.33.4"
-      working-directory: "."
-      build: true
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with: { version: "10.33.4" }
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      # `build` skripti yo'q: bu paket manba ko'rinishida iste'mol qilinadi
+      # (tag tarballi), shuning uchun quriladigan artefakt ham yo'q.
