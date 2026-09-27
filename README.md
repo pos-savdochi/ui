@@ -64,6 +64,15 @@ git tag v0.2.0 && git push origin v0.2.0
 Tag GitHub Packages'ga publish qiladi. **Tagsiz publish yo'q** — bu tasodifiy
 reliz qilishning oldini oladi.
 
+## Brend tokenlari (v0.2.0)
+
+Qiymatlar Savdochi Brand Kit v1.0 dan (`client/design/brand/`, qoida —
+`client/design/theme.md`). Yangi utility'lar: `bg-brand` (faqat logo — accent
+tanlagich `--primary` ni almashtiradi, `--brand` ni emas), `bg-tint`,
+`bg-primary-hover`/`-pressed`, `text-{success,warning,destructive}-foreground`.
+Radius: sm/md 8 · lg/xl 14 · 2xl 24. v0.1.1 → v0.2.0 ko'rinishni o'zgartiradi
+(holat ranglari, chegara, radius) — iste'molchi o'zi tanlagan paytda ko'taradi.
+
 ## Ma'lum qarz
 
 `globals.css` `shadcn` paketidan `tailwind.css` ni import qiladi, ya'ni CLI

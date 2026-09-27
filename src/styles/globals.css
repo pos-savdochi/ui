@@ -10,10 +10,10 @@
 @source "../**/*.{ts,tsx}";
 
 /* ------------------------------------------------------------------ *
- * Apple design system (design/theme.md)
- * Single accent: Action Blue #0066cc. Surfaces: white / parchment
- * #f5f5f7 in light, near-black tiles #272729 / #2a2a2c / #252527 in dark.
- * All values are exact sRGB → OKLCH conversions of the theme.md hexes.
+ * Savdochi brend tizimi — Brand Kit v1.0 (client: design/theme.md).
+ * Yagona accent: Blue #0066cc. Yuzalar: oq / paper #f5f5f7 (yorug'),
+ * #1d1d1f / #272729 / #2a2a2c / #252527 (qorong'i). Holat ranglari kitdan,
+ * WCAG AA. Barcha qiymatlar hex → OKLCH aniq konversiyasi.
  * ------------------------------------------------------------------ */
 
 :root {
@@ -31,10 +31,19 @@
     --muted-foreground: oklch(0.54 0.0077 286.139); /* #6e6e73 */
     --accent: oklch(0.971 0.0027 286.35);         /* #f5f5f7 parchment */
     --accent-foreground: oklch(0.232 0.0038 286.099);
-    --destructive: oklch(0.654 0.2321 28.659);    /* #ff3b30 */
-    --border: oklch(0.907 0 0);                   /* #e0e0e0 hairline */
-    --input: oklch(0.907 0 0);                    /* #e0e0e0 */
-    --ring: oklch(0.563 0.1933 256.156);          /* #0071e3 focus blue */
+    --destructive: oklch(0.529 0.1892 24.97);     /* #C1272D kit danger */
+    --destructive-foreground: oklch(1 0 0);       /* #ffffff */
+    --success: oklch(0.518 0.139 148.79);         /* #147D37 kit success */
+    --success-foreground: oklch(1 0 0);
+    --warning: oklch(0.479 0.1124 59.93);         /* #8A4B00 kit warning */
+    --warning-foreground: oklch(1 0 0);
+    --border: oklch(0.865 0.0068 286.26);         /* #D2D2D7 kit line */
+    --input: oklch(0.865 0.0068 286.26);          /* #D2D2D7 */
+    --ring: oklch(0.522 0.1771 255.83);           /* #0066CC — kitda alohida fokus ko'ki yo'q */
+    --primary-hover: oklch(0.465 0.1548 255.31);  /* #0057AD kit blueHover */
+    --primary-pressed: oklch(0.407 0.1331 254.78); /* #00488F kit bluePressed */
+    --tint: oklch(0.961 0.0188 255.53);           /* #EAF3FF kit tint */
+    --brand: oklch(0.522 0.1771 255.83);          /* #0066CC — logo; accent tanlagich tegmaydi */
     --chart-1: oklch(0.522 0.1771 255.83);
     --chart-2: oklch(0.669 0.1808 251.84);
     --chart-3: oklch(0.563 0.1933 256.156);
@@ -47,8 +56,8 @@
     --sidebar-primary-foreground: oklch(1 0 0);
     --sidebar-accent: oklch(1 0 0);
     --sidebar-accent-foreground: oklch(0.232 0.0038 286.099);
-    --sidebar-border: oklch(0.907 0 0);
-    --sidebar-ring: oklch(0.563 0.1933 256.156);
+    --sidebar-border: oklch(0.865 0.0068 286.26);
+    --sidebar-ring: oklch(0.522 0.1771 255.83);
 }
 
 .dark {
@@ -66,7 +75,16 @@
     --muted-foreground: oklch(0.711 0.0072 286.216); /* #a1a1a6 */
     --accent: oklch(0.286 0.0036 286.169);         /* #2a2a2c tile-2 */
     --accent-foreground: oklch(0.971 0.0027 286.35);
-    --destructive: oklch(0.663 0.2236 28.292);     /* #ff453a */
+    --destructive: oklch(0.707 0.1847 25.94);     /* #FF6961 — #272729 da 5.29:1 */
+    --destructive-foreground: oklch(0.232 0.0038 286.099); /* #1D1D1F ink */
+    --success: oklch(0.73 0.1944 147.44);         /* #34C759 */
+    --success-foreground: oklch(0.232 0.0038 286.099);
+    --warning: oklch(0.782 0.1711 67.22);         /* #FF9F0A */
+    --warning-foreground: oklch(0.232 0.0038 286.099);
+    --primary-hover: oklch(0.465 0.1548 255.31);  /* #0057AD — oq matn 7.0:1 */
+    --primary-pressed: oklch(0.407 0.1331 254.78); /* #00488F — oq matn 8.9:1 */
+    --tint: oklch(0.28 0.0442 252.03);            /* #182A3E — sky 4.84:1 */
+    --brand: oklch(0.522 0.1771 255.83);          /* #0066CC */
     --border: oklch(1 0 0 / 12%);                  /* white hairline */
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.669 0.1808 251.84);            /* #2997ff sky-link focus */
@@ -104,6 +122,15 @@
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
+    --color-primary-hover: var(--primary-hover);
+    --color-primary-pressed: var(--primary-pressed);
+    --color-tint: var(--tint);
+    --color-brand: var(--brand);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
     --color-chart-1: var(--chart-1);
     --color-chart-2: var(--chart-2);
     --color-chart-3: var(--chart-3);
@@ -121,19 +148,17 @@
     --color-sky: oklch(0.669 0.1808 251.84);         /* #2997ff on-dark link */
     --color-focus: oklch(0.563 0.1933 256.156);      /* #0071e3 focus */
 
-    /* Apple system status colors — functional (not brand) tones for
-       error/warning/success states. Red already lives in `--destructive`.
-       Fixed across themes; utilities: text-warning, bg-success/10, … */
-    --color-warning: oklch(0.7719 0.1583 62.06);     /* #ff9500 system orange */
-    --color-success: oklch(0.7451 0.1657 145.63);    /* #34c759 system green */
+    /* Holat ranglari — faqat holat uchun, doim matn/ikonka bilan (theme.md).
+       Temaga qarab :root/.dark da; utility'lar: text-warning, bg-success/10, … */
 
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+    /* Kit v1.0: small 8 · control 14 · card 24. Sinflar joyida qoladi, qiymati kitga keladi. */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.875rem;
+    --radius-xl: 0.875rem;
+    --radius-2xl: 1.5rem;
+    --radius-3xl: 2rem;
+    --radius-4xl: 2.5rem;
     --color-sidebar: var(--sidebar);
     --color-sidebar-foreground: var(--sidebar-foreground);
     --color-sidebar-primary: var(--sidebar-primary);
@@ -143,7 +168,8 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
     --font-sans: var(--font-sans);
-    --font-heading: var(--font-heading);
+    /* Manrope'da ʻ ʼ Қ Ғ Ҳ yo'q — yetishmagan glif Inter'dan olinadi. */
+    --font-heading: var(--font-heading), var(--font-sans), system-ui, sans-serif;
     --font-mono: var(--font-mono);
 }
 
@@ -157,10 +183,10 @@
     -moz-osx-font-smoothing: grayscale;
     font-synthesis-weight: none;
     }
-  /* Headlines: SF Pro Display with the signature "Apple tight" tracking. */
+  /* Sarlavhalar: Manrope, kit tracking (-0.025em). */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.025em;
     }
   button:not(:disabled), [role="button"]:not(:disabled) {
     cursor: pointer;
