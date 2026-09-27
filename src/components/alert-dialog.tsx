@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { type VariantProps } from "class-variance-authority"
 import { AlertDialog as AlertDialogPrimitive } from "radix-ui"
 
 import { cn } from "@savdochi-uz/ui/lib/utils"
@@ -99,7 +100,7 @@ function AlertDialogTitle({
   return (
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"
-      className={cn("text-[17px] font-semibold", className)}
+      className={cn("font-heading text-[19px] leading-[26px] font-semibold tracking-[-0.015em]", className)}
       {...props}
     />
   )
@@ -118,13 +119,19 @@ function AlertDialogDescription({
   )
 }
 
+// variant/size pick the look directly instead of merging a className over the
+// default variant — a merged destructive override kept active:bg-primary-pressed
+// and flashed accent blue while pressed.
 function AlertDialogAction({
   className,
+  variant,
+  size,
   ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Action>) {
+}: React.ComponentProps<typeof AlertDialogPrimitive.Action> &
+  VariantProps<typeof buttonVariants>) {
   return (
     <AlertDialogPrimitive.Action
-      className={cn(buttonVariants(), className)}
+      className={cn(buttonVariants({ variant, size }), className)}
       {...props}
     />
   )
@@ -132,11 +139,14 @@ function AlertDialogAction({
 
 function AlertDialogCancel({
   className,
+  variant = "outline",
+  size,
   ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Cancel>) {
+}: React.ComponentProps<typeof AlertDialogPrimitive.Cancel> &
+  VariantProps<typeof buttonVariants>) {
   return (
     <AlertDialogPrimitive.Cancel
-      className={cn(buttonVariants({ variant: "outline" }), className)}
+      className={cn(buttonVariants({ variant, size }), className)}
       {...props}
     />
   )
