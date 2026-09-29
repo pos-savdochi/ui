@@ -63,13 +63,13 @@ function SheetContent({
           // scrolls. Side drawers: `max-w-[calc(100%-3rem)]` leaves a tappable
           // overlay strip on phones; sm+ caps at max-w-md. Bottom sheet: full
           // width, rounded top, height capped by the caller (or 85dvh default).
-          "bg-card border-border data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col duration-200",
+          "bg-card border-transparent data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col duration-200",
           side === "right" &&
-            "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 w-full max-w-[calc(100%-3rem)] border-l sm:max-w-md",
+            "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 w-full max-w-[calc(100%-3rem)] rounded-l-3xl sm:max-w-md",
           side === "left" &&
-            "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 w-full max-w-[calc(100%-3rem)] border-r sm:max-w-md",
+            "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 w-full max-w-[calc(100%-3rem)] rounded-r-3xl sm:max-w-md",
           side === "bottom" &&
-            "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 max-h-[85dvh] rounded-t-2xl border-t",
+            "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 max-h-[85dvh] rounded-t-3xl",
           className
         )}
         {...props}
@@ -97,7 +97,7 @@ function SheetTitle({
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn("text-foreground text-[17px] font-semibold", className)}
+      className={cn("text-foreground font-heading text-[19px] leading-[26px] font-semibold tracking-[-0.015em]", className)}
       {...props}
     />
   )
