@@ -30,7 +30,7 @@ export function NativeSelect({
       <select
         data-slot="native-select"
         className={cn(
-          "w-full appearance-none rounded-lg border border-input bg-background px-3 py-2 pr-9 text-[14px] text-foreground transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+          "w-full appearance-none h-11 rounded-xl border border-transparent bg-muted px-3.5 py-2 pr-9 text-[15px] text-foreground transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
         {...props}
