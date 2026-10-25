@@ -58,7 +58,7 @@ bergan.
 Versiyani `package.json` da oshiring → `main` ga merge → tag qo'ying:
 
 ```bash
-git tag v0.2.0 && git push origin v0.2.0
+git tag v0.2.1 && git push origin v0.2.1
 ```
 
 Tag GitHub Packages'ga publish qiladi. **Tagsiz publish yo'q** — bu tasodifiy
@@ -84,6 +84,10 @@ Savdochi Brand Kit v1.0 (`client/design/brand/`); qoida — `client/design/theme
   cho'kkan `Input`/`Select`/`NativeSelect` (44), segment ko'rinishidagi `Toggle`/`ToggleGroup`.
 
 v0.1.1 → v0.2.0 ko'rinishni butunlay o'zgartiradi — iste'molchi o'zi tanlagan paytda ko'taradi.
+
+v0.2.1 (2026-10-25) — faqat bog'liqliklar: `radix-ui` 1.8.1, `lucide-react` 1.58.0, `zod` 4.6.7,
+`tailwind-merge` 3.7.0, `shadcn` 4.22.0 (uning `tailwind.css` ida faqat `shimmer` ga `prefers-reduced-motion`
+qo'shilgan). Komponent va token kodi o'zgarmagan.
 
 ## Ma'lum qarz
 
